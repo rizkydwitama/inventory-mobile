@@ -7,5 +7,6 @@ class AppColors {
   static const light = Color(0xFFFFFFFF);
   static const grey = Color(0xFF68778D);
   static const danger = Color(0xFFFF463D);
+  static const border = Color(0xFFCBD5E0);
   static const transparent = Colors.transparent;
 }
