@@ -4,9 +4,19 @@ import 'package:get/get.dart';
 import '../themes/app_colors.dart';
 
 class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidgets({super.key, required this.title, this.actionOnPressed});
+  const AppBarWidgets({
+    super.key,
+    required this.title,
+    this.actionOnPressed,
+    required this.enableCenterTitle,
+    required this.enableLeading,
+    required this.enableAction
+  });
 
   final String title;
+  final bool enableCenterTitle;
+  final bool enableLeading;
+  final bool enableAction;
   final Function()? actionOnPressed;
 
   @override
@@ -30,22 +40,28 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
           ]
       ),
       child: AppBar(
-        centerTitle: true,
+        centerTitle: enableCenterTitle,
         title: Text(
           title,
         ),
         actions: [
-          IconButton(
-            onPressed: actionOnPressed,
-            icon: SvgPicture.asset('assets/icons/ic_search.svg'),
+          Visibility(
+            visible: enableAction,
+            child: IconButton(
+                onPressed: actionOnPressed,
+                icon: SvgPicture.asset('assets/icons/ic_search.svg')
+            ),
           )
         ],
-        leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(
-              Icons.arrow_back,
-            )
-        ),
+        leading: Visibility(
+          visible: enableLeading,
+          child: IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(
+                Icons.arrow_back,
+              )
+          ),
+        )
       ),
     );
   }

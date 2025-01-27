@@ -16,6 +16,9 @@ class ListItemPage extends StatelessWidget {
       appBar: AppBarWidgets(
         title: 'List Stok Barang',
         actionOnPressed: () {},
+        enableCenterTitle: true,
+        enableLeading: false,
+        enableAction: true,
       ),
       body: RefreshIndicator(
         onRefresh: controller.onRefresh,
