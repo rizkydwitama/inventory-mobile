@@ -25,6 +25,7 @@ class ListItemPage extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: controller.onRefresh,
         color: AppColors.primary,
+        backgroundColor: AppColors.light,
         child: ListView(
           padding: EdgeInsets.symmetric(
             horizontal: 16, vertical: 24
