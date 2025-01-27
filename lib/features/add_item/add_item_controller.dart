@@ -5,8 +5,6 @@ class AddItemController extends GetxController {
   final formKey = GlobalKey<FormState>();
   RxBool isButtonEnable = false.obs;
 
-
-
   bool validateForm() {
     return isButtonEnable.value = formKey.currentState?.validate() ?? false;
   }

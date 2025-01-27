@@ -41,6 +41,8 @@ class AppBarWidgets extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: AppBar(
         centerTitle: enableCenterTitle,
+        scrolledUnderElevation: 0,
+        elevation: 0,
         title: Text(
           title,
         ),

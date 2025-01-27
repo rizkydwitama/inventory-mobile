@@ -15,7 +15,9 @@ class ListItemPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWidgets(
         title: 'List Stok Barang',
-        actionOnPressed: () {},
+        actionOnPressed: () {
+          Get.toNamed(AppRoutes.searchItem);
+        },
         enableCenterTitle: true,
         enableLeading: false,
         enableAction: true,
@@ -53,6 +55,7 @@ class ListItemPage extends StatelessWidget {
             ListView.builder(
                 itemCount: 5,
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return Container(
