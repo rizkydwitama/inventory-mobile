@@ -42,12 +42,19 @@ class ListItemPage extends StatelessWidget {
                     fontWeight: FontWeight.w400
                   ),
                 ),
-                Text(
-                  'Edit Data',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.secondary,
-                    fontWeight: FontWeight.w500
+                InkWell(
+                  onTap: () {
+                    controller.isEdit.value
+                        ? controller.isEdit.value = false
+                        : controller.isEdit.value = true;
+                  },
+                  child: Text(
+                    'Edit Data',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.secondary,
+                      fontWeight: FontWeight.w500
+                    ),
                   ),
                 )
               ],
@@ -75,8 +82,44 @@ class ListItemPage extends StatelessWidget {
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Obx(() => Visibility(
+                            visible: controller.isEdit.value,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: InkWell(
+                                onTap: () {
+                                  controller.isChecked.value
+                                      ? controller.isChecked.value = false
+                                      : controller.isChecked.value = true;
+                                },
+                                child: Container(
+                                  width: 18,
+                                  height: 18,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(4)
+                                    ),
+                                    color: AppColors.transparent,
+                                    border: Border.all(
+                                      color: AppColors.grey,
+                                      width: 2
+                                    ),
+                                  ),
+                                  child: Visibility(
+                                    visible: controller.isChecked.value,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 14,
+                                        color: AppColors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                        ),),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -99,6 +142,7 @@ class ListItemPage extends StatelessWidget {
                             )
                           ],
                         ),
+                        Spacer(),
                         Text(
                           '[Harga]',
                           style: TextStyle(
@@ -135,10 +179,12 @@ class ListItemPage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: Obx(() => Visibility(
+        visible: !controller.isEdit.value,
+        child: FloatingActionButton.extended(
           onPressed: () => Get.toNamed(AppRoutes.addItem),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(360)
+              borderRadius: BorderRadius.circular(360)
           ),
           backgroundColor: AppColors.primary,
           icon: Icon(
@@ -154,7 +200,94 @@ class ListItemPage extends StatelessWidget {
                 fontWeight: FontWeight.w500
             ),
           ),
-      ),
+        ),
+      )),
+      bottomNavigationBar: Obx(() => Visibility(
+        visible: controller.isEdit.value,
+        child: Container(
+          width: Get.width,
+          height: 72,
+          padding: EdgeInsets.all(16),
+          color: AppColors.transparent,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        controller.isChecked.value
+                            ? controller.isChecked.value = false
+                            : controller.isChecked.value = true;
+                      },
+                      child: Container(
+                        width: 18,
+                        height: 18,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(4)
+                          ),
+                          color: AppColors.transparent,
+                          border: Border.all(
+                              color: AppColors.grey,
+                              width: 2
+                          ),
+                        ),
+                        child: Visibility(
+                          visible: controller.isChecked.value,
+                          child: Center(
+                            child: Icon(
+                              Icons.check,
+                              size: 14,
+                              color: AppColors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 14,),
+                    Text(
+                      'Pilih Semua',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.dark
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8,),
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.light,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        side: BorderSide(
+                          color: AppColors.border,
+                          strokeAlign: 1.5,
+                        )
+                      )
+                    ),
+                    child: Text(
+                      'Hapus Barang',
+                      style: TextStyle(
+                        color: AppColors.danger,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500
+                      ),
+                    )
+                ),
+              )
+            ],
+          ),
+        ),
+      ))
     );
   }
 }
