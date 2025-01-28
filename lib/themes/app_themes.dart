@@ -11,6 +11,12 @@ class AppTheme {
       splashColor: AppColors.transparent,
       appBarTheme: appBarTheme(),
       fontFamily: 'Inter',
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: AppColors.light,
+        dragHandleColor: AppColors.border,
+        showDragHandle: true,
+        dragHandleSize: Size(120, 6)
+      )
     );
   }
 

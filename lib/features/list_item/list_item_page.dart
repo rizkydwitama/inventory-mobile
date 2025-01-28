@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_mobile/features/list_item/list_item_controller.dart';
 import 'package:inventory_mobile/widgets/app_bar_widgets.dart';
+import 'package:inventory_mobile/widgets/detail_item_widget.dart';
 import '../../routes/app_routes.dart';
 import '../../themes/app_colors.dart';
 
@@ -66,92 +67,115 @@ class ListItemPage extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return Container(
-                    width: Get.width,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 16
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.light,
-                      border: Border(
-                        bottom: BorderSide(
-                            color: AppColors.border,
-                            width: 1
-                        ),
-                      )
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Obx(() => Visibility(
-                            visible: controller.isEdit.value,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 15),
-                              child: InkWell(
-                                onTap: () {
-                                  controller.isChecked.value
-                                      ? controller.isChecked.value = false
-                                      : controller.isChecked.value = true;
-                                },
-                                child: Container(
-                                  width: 18,
-                                  height: 18,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(4)
-                                    ),
-                                    color: AppColors.transparent,
-                                    border: Border.all(
-                                      color: AppColors.grey,
-                                      width: 2
-                                    ),
-                                  ),
-                                  child: Visibility(
-                                    visible: controller.isChecked.value,
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.check,
-                                        size: 14,
+                  return InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          showDragHandle: true,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(8)
+                            )
+                          ),
+                          builder: (context) {
+                            return DetailItemWidget(
+                                name: 'Iphone 15 256GB',
+                                category: 'Smartphone',
+                                group: 'Electronic',
+                                stock: 20,
+                                price: 12000000
+                            );
+                          }
+                      );
+                    },
+                    child: Container(
+                      width: Get.width,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 16
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.light,
+                        border: Border(
+                          bottom: BorderSide(
+                              color: AppColors.border,
+                              width: 1
+                          ),
+                        )
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Obx(() => Visibility(
+                              visible: controller.isEdit.value,
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 15),
+                                child: InkWell(
+                                  onTap: () {
+                                    controller.isChecked.value
+                                        ? controller.isChecked.value = false
+                                        : controller.isChecked.value = true;
+                                  },
+                                  child: Container(
+                                    width: 18,
+                                    height: 18,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(4)
+                                      ),
+                                      color: AppColors.transparent,
+                                      border: Border.all(
                                         color: AppColors.grey,
+                                        width: 2
+                                      ),
+                                    ),
+                                    child: Visibility(
+                                      visible: controller.isChecked.value,
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.check,
+                                          size: 14,
+                                          color: AppColors.grey,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
+                              )
+                          ),),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '[Nama Barang]',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.dark,
+                                  fontWeight: FontWeight.w500
+                                ),
                               ),
-                            )
-                        ),),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '[Nama Barang]',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: AppColors.dark,
-                                fontWeight: FontWeight.w500
-                              ),
-                            ),
-                            const SizedBox(height: 4,),
-                            Text(
-                              '[Stok]',
-                              style: TextStyle(
-                                color: AppColors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400
-                              ),
-                            )
-                          ],
-                        ),
-                        Spacer(),
-                        Text(
-                          '[Harga]',
-                          style: TextStyle(
-                            color: AppColors.dark,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500
+                              const SizedBox(height: 4,),
+                              Text(
+                                '[Stok]',
+                                style: TextStyle(
+                                  color: AppColors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
+                          Spacer(),
+                          Text(
+                            '[Harga]',
+                            style: TextStyle(
+                              color: AppColors.dark,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 }

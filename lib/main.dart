@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.listItem,
       getPages: AppPages.getPages,
       theme: AppTheme.buildThemeData(),
+      
     );
   }
 }
